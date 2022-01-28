@@ -20,7 +20,8 @@ function Titulo (props){
 
 export default function PaginaInicial() {
     
-    const [username, setUsername] = React.useState('afonsocardz');
+    const [username, setUsername] = React.useState('');
+    const [displayImage, setDisplayImage] = React.useState('hidden');
     const roteamento = useRouter();
   
     return (
@@ -75,9 +76,18 @@ export default function PaginaInicial() {
                   function handler (event){
                     //onde ta o valor?
                     const valor = event.target.value;
+                    let isVisible = '';
+                    if (valor.length > 2 ){
+                      isVisible = 'visible';
+                    }else{
+                      isVisible = 'hidden';
+                    }
                     //troca o valor da variável
                     //atraves do React e mostra o que precisa mudar
                     setUsername(valor);
+                    
+                    setDisplayImage(isVisible);
+                    
                   }
                 }
                 fullWidth
@@ -122,9 +132,11 @@ export default function PaginaInicial() {
               }}
             >
               <Image
+                
                 styleSheet={{
                   borderRadius: '50%',
                   marginBottom: '16px',
+                  visibility: `${displayImage}`,
                 }}
                 src={`https://github.com/${username}.png`}
               />
